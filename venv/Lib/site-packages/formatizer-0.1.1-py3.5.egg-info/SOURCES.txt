@@ -1,0 +1,10 @@
+LICENSE
+MANIFEST.in
+README.rst
+formatizer.py
+setup.cfg
+setup.py
+formatizer.egg-info/PKG-INFO
+formatizer.egg-info/SOURCES.txt
+formatizer.egg-info/dependency_links.txt
+formatizer.egg-info/top_level.txt
