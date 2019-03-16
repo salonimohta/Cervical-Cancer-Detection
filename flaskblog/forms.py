@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from flask_wtf.file import FileField,FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField,IntegerField,RadioField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskblog.models import User
 
@@ -41,4 +42,17 @@ class ResetPasswordForm(FlaskForm):
     password=PasswordField('Password',validators=[DataRequired()])
     confirm_password=PasswordField('Confirm Password', validators=[DataRequired(),EqualTo('password',message="passwords must match")])
     submit=SubmitField('Reset Password')
+
+class AddPatient(FlaskForm):
+    firstName = StringField('First Name',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    lastName = StringField('Last Name',
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    age = StringField('Age',
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    gender = RadioField('Gender', validators=[DataRequired()], choices = [('M','Male'),('F','Female')], default='M')
+    latitude = StringField('Latitude')
+    longitude = StringField('Longitude')
+    file = FileField('Upload File', validators=[DataRequired(), FileAllowed(['nii.gz', 'nii', 'gz', 'jpg','csv'])])
+    submit = SubmitField('Add')
 

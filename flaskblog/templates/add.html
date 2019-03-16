@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+        {% if x==0 %}
+            <p>Cancer is not present in the cervix</p>
+        {% elif x==1 %}
+            <p>Early stage cancer detected in cervix</p>
+        {% else %}
+            <p>Cancer detected in advance stage in cervix</p>
+        {% endif %}
+{% endblock content %}

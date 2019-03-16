@@ -1,12 +1,15 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt, mail
-from flaskblog.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
-from flaskblog.models import User, Post
+from flaskblog.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm,AddPatient
+from flaskblog.models import User,Patient
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flaskblog.token import generate_confirmation_token, confirm_token
 from ww import f
+import os
+from werkzeug.datastructures import FileStorage
+from random import *
 
 s=URLSafeTimedSerializer('Thisisasecret!')
 
@@ -16,9 +19,30 @@ s=URLSafeTimedSerializer('Thisisasecret!')
 def home():
     return render_template('home.html')
 
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html',title='About')
+
+@app.route('/causes')
+def causes():
+    return render_template('causes.html',title='Causes of Cervical cancer')
+
+@app.route('/symptoms')
+def symptoms():
+    return render_template('symptoms.html',title='News about Cervical cancer')
+
+
+@app.route('/risk_prone')
+def risk_prone():
+    return render_template('risk_prone.html',title='Risk Prone Areas')
+
+@app.route('/news')
+def news():
+    return render_template('news.html',title='news')
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -66,14 +90,14 @@ def confirm_email(token):
 @app.route('/login',methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
     form=LoginForm()
     if form.validate_on_submit():
         user=User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,form.password.data):
             login_user(user,remember=form.remember.data)
             next_page=request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash('Unsuccessful Log In. Please check username and password again','danger')
     return render_template('login.html',title='login',form=form)
@@ -153,4 +177,31 @@ def resend_confirmation():
     send_email(current_user.email, confirm_url)
     flash('A new confirmation email has been sent.', 'success')
     return redirect(url_for('unconfirmed'))
+
+def save_file(form_picture,last_name, first_name):
+    _, f_ext = os.path.splitext(form_picture.filename)
+    f = FileStorage(form_picture.filename)
+    #picture_fn = last_name + first_name + ".jpg"
+    picture_fn = f.filename
+    picture_path = os.path.join(app.root_path, 'static\cervix', 'picture_fn')
+    f = request.files.getlist('file')[0]
+    f.save(picture_path)
+    return picture_fn
+
+
+@app.route("/detect", methods=['GET', 'POST'])
+@login_required
+def detect():
+    form = AddPatient()
+    if form.validate_on_submit():
+        picture_fn = save_file(form.file.data, form.lastName.data, form.firstName.data)
+        patient = Patient(first_name=form.firstName.data, last_name=form.lastName.data, age=form.age.data,
+                          gender=form.gender.data,latitude=form.latitude.data,longitude=form.longitude.data, file=picture_fn, author=current_user)
+        db.session.add(patient)
+        db.session.commit()
+        flash('Patient information is successfully entered', 'success')
+        x= randint(0,2)
+        return render_template('add.html',x=x )
+    return render_template('detect.html', title='Detect Cancer', form=form)
+
 

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cervical Cancer Detection</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="static/css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="static/css/themify-icons.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body class="single-page about-page">
+    <header class="site-header">
+        <div class="top-header-bar">
+            <div class="container">
+                <div class="row flex-wrap justify-content-center justify-content-lg-between align-items-lg-center">
+                    <div class="col-12 col-lg-8 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+                        <div class="header-bar-email">
+                            EMAIL: <a href="#">cancerdetectionorg@gmail.com</a>
+                        </div><!-- .header-bar-email -->
+
+                        <!-- <div class="header-bar-text">
+                            <p>PHONE: <span>+24 3772 120 091 / +56452 4567</span></p>
+                        </div>.header-bar-text -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-lg-4 d-flex  justify-content-center  align-items-center">
+                        <div class="donate-btn" style="margin-right:10 ">
+                            <a href="account">Account</a>
+                        </div><!-- .donate-btn -->
+
+                        <div class="donate-btn" style="margin:10">
+                            <a href="logout">Logout</a>
+                        </div><!-- .donate-btn -->
+                    </div><!-- .col -->
+                    
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .top-header-bar -->
+
+        <div class="nav-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-flex flex-wrap align-items-center">
+                        <div class="site-branding d-flex align-items-center" style="flex-grow: 1">
+                         <a class="d-block" href="index" rel="home"><img width="50" height="50" class="d-block" alt="logo" src="static/images/cervical-cancer.jpeg"></a>
+                        </div><!-- .site-branding -->
+                        <div style="flex-grow: 1">Cervical Cancer</div>
+
+                        <nav class="site-navigation d-flex justify-content-end align-items-center" style="flex-grow:8 ">
+                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                                <li class="current-menu-item"><a href="index">Home</a></li>
+                                <li><a href="detect">Detection of cervical cancer</a></li>
+                        <li><a href="risk_prone">Risk Prone areas</a></li>
+                        <li><a href="news">News</a></li>
+                                <!-- <li><a href="news.html">Risk Prone </a></li> -->
+                                <!-- <li><a href="contact.html">Contact</a></li> -->
+                            </ul>
+                        </nav><!-- .site-navigation -->
+
+                        <div class="hamburger-menu d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div><!-- .hamburger-menu -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .nav-bar -->
+    </header><!-- .site-header -->
+
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Detection of cervical cancer</h1>
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header -->
+
+    <div class="welcome-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 order-2 order-lg-1">
+                    <div class="welcome-content">
+{#                        <header class="entry-header">#}
+{#                            <h2 class="entry-title">Welcome to our Portal</h2>#}
+{#                        </header><!-- .entry-header -->#}
+
+{#                        <div class="entry-content mt-5">#}
+{#                            <p>Stages of cervical cancer include:#}
+{#                                <br />#}
+{#                                Stage I. Cancer is confined to the cervix.<br />#}
+{#                                Stage II. Cancer is present in the cervix and upper portion of the vagina.<br />#}
+{#                                Stage III. Cancer has moved to the lower portion of the vagina or internally to the pelvic side wall.<br />#}
+{#                                Stage IV. Cancer has spread to nearby organs, such as the bladder or rectum, or it has spread to other areas of the body, such as the lungs, liver or bones.<br /></p>#}
+{#                        </div><!-- .entry-content -->#}
+
+                        <div class="content-section">
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4"><h2>Upload Individual Data</h2></legend>
+                                    <div class="form-group">
+                                        {{ form.firstName.label(class="form-control-label") }}
+                                        {{ form.firstName(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.lastName.label(class="form-control-label") }}
+                                        {{ form.lastName(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.age.label(class="form-control-label") }}
+                                        {{ form.age(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.gender.label(class="form-control-label") }}
+                                        {{ form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.file.label() }}
+                                        {{ form.file(class="form-control-file") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.latitude.label() }}
+                                        {{ form.latitude(class="form-control-file") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.longitude.label() }}
+                                        {{ form.longitude(class="form-control-file") }}
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-outline-info") }}
+                                </div>
+                            </form>
+    </div>
+
+                        
+                    </div><!-- .welcome-content -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-lg-6 order-1 order-lg-2">
+                    <div class="content-section">
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4"><h2>Upload Mass Data</h2></legend>
+                                    <div class="form-group">
+                                        {{ form.firstName.label(class="form-control-label") }}
+                                        {{ form.firstName(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.lastName.label(class="form-control-label") }}
+                                        {{ form.lastName(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.age.label(class="form-control-label") }}
+                                        {{ form.age(class="form-control form-control-lg") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.gender.label(class="form-control-label") }}
+                                        {{ form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.file.label() }}
+                                        {{ form.file(class="form-control-file") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.latitude.label() }}
+                                        {{ form.latitude(class="form-control-file") }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.longitude.label() }}
+                                        {{ form.longitude(class="form-control-file") }}
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-outline-info") }}
+                                </div>
+                            </form>
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .home-page-icon-boxes -->
+
+    <div class="about-stats">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="circular-progress-bar">
+                        <div class="circle" id="loader_1">
+                            <strong class="d-flex justify-content-center"></strong>
+                        </div>
+
+                        <h3 class="entry-title">NGOs Associated</h3>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="circular-progress-bar">
+                        <div class="circle" id="loader_2">
+                            <strong class="d-flex justify-content-center"></strong>
+                        </div>
+
+                        <h3 class="entry-title">Areas Evaluated</h3>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="circular-progress-bar">
+                        <div class="circle" id="loader_3">
+                            <strong class="d-flex justify-content-center"></strong>
+                        </div>
+
+                        <h3 class="entry-title">Individual patients registered</h3>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="circular-progress-bar">
+                        <div class="circle" id="loader_4">
+                            <strong class="d-flex justify-content-center"></strong>
+                        </div>
+
+                        <h3 class="entry-title">Cervical Cancer Detected</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-testimonial">
+        <div class="container">
+            <div class="row">
+                <div >
+                    <div class="testimonial-cont">
+                        <div class="entry-content">
+                            <p>Treatment for cervical cancer depends on several factors, such as the stage of the cancer, other health problems you may have and your preferences. </p>
+                        </div>
+
+                        <div class="entry-footer d-flex flex-wrap align-items-center mt-5">
+                            <img src="static/images/testimonial-1.jpg" alt="">
+
+                            <h4>Maria Williams, <span>Volunteer</span></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-12 col-md-6 offset-lg-2 col-lg-5">
+                    <div class="testimonial-cont">
+                        <div class="entry-content">
+                            <p>
+                                    </p>
+                        </div>
+
+                        <div class="entry-footer d-flex flex-wrap align-items-center mt-5">
+                            <img src="images/testimonial-2.jpg" alt="">
+
+                            <h4>Cristian James, <span>Volunteer</span></h4>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="foot-about">
+                            <h2><a class="foot-logo" href="#"><img src="static/images/cervical-cancer.jpeg" width=50 height=50 alt=""></a><div style="padding: 10">Cervical Cancer</div> </h2>
+                            <p>Lorem ipsum dolor sit amet, con sectetur adipiscing elit. Mauris temp us vestib ulum mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempus vestib ulum mauris.Lorem ipsum dolo.</p>
+
+                            <ul class="d-flex flex-wrap align-items-center">
+                                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                            <h2>Contact</h2>
+
+                            <ul>
+                                <li><i class="fa fa-phone"></i><span>+45 677 8993000 223</span></li>
+                                <li><i class="fa fa-envelope"></i><span>cancerdetectionorg@gmail.com</span></li>
+                                <li><i class="fa fa-map-marker"></i><span>Main Str. no 45-46, b3, 56832, Los Angeles, CA</span></li>
+                            </ul>
+                        </div><!-- .foot-contact -->
+
+                        <div class="subscribe-form">
+                            <!-- <form class="d-flex flex-wrap align-items-center">
+                                <input type="email" placeholder="Your email">
+                                <input type="submit" value="send">
+                            </form>.flex -->
+                        </div><!-- .search-widget -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+
+        <div class="footer-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-bar -->
+    </footer><!-- .site-footer -->
+
+    <script>
+         function myFunction() {
+        var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more"; 
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less"; 
+            moreText.style.display = "inline";
+        }
+        }
+    </script>
+    <script type='text/javascript' src='static/js/jquery.js'></script>
+    <script type='text/javascript' src='static/js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='static/js/swiper.min.js'></script>
+    <script type='text/javascript' src='static/js/jquery.countdown.min.js'></script>
+    <script type='text/javascript' src='static/js/circle-progress.min.js'></script>
+    <script type='text/javascript' src='static/js/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='static/js/jquery.barfiller.js'></script>
+    <script type='text/javascript' src='static/js/custom.js'></script>
+
+</body>
+</html>
