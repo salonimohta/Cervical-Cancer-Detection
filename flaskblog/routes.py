@@ -5,29 +5,16 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from flaskblog.token import generate_confirmation_token, confirm_token
 from ww import f
 
 s=URLSafeTimedSerializer('Thisisasecret!')
 
-posts=[
-    {
-        'author': 'Saloni Mohta',
-        'title': 'Blog post 1',
-        'content': ' First post content',
-        'date_posted': 'March 12, 2019'
-    },
-    {
-        'author': 'Inolas Athom',
-        'title': 'Blog post 2',
-        'content': 'Second post content',
-        'date_posted' : 'March 13, 2019'
-    }
-]
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html',posts=posts)
+    return render_template('home.html')
 
 @app.route('/about')
 def about():
@@ -40,28 +27,38 @@ def register():
     form=RegistrationForm()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        token=s.dumps(form.email.data,salt='confirm-email')
-        msg=Message('Confirm Email', sender='somebeek@gmail.com',recipients=[form.email.data])
-        link=url_for('confirm_email',token=token,_external=True)
-        msg.body='Click on this link to confirm your email {}'.format(link)
-        mail.send(msg)
 
         user = User(username=form.username.data,email=form.email.data,password=hashed_password)
         db.session.add(user)
         db.session.commit()
 
-        login_user(user)
-        return redirect(url_for("home"))
+        token = generate_confirmation_token(user.email)
+        confirm_url = url_for('confirm_email', token=token, _external=True)
+        send_email(user.email,confirm_url=confirm_url)
 
+        login_user(user)
+
+        flash('A confirmation email has been sent via email.', 'success')
+        return redirect(url_for("home"))
     return render_template('register.html',title='register',form=form)
 
-@app.route('/confirm_email/<token>')
+@app.route('/confirm/<token>')
+@login_required
 def confirm_email(token):
     try:
-        email=s.loads(token,salt='confirm-email',max_age=60)
-    except SignatureExpired:
-        flash('The token is either invalid or expired')
-        return redirect(url_for(''))
+        email = confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.confirmed = True
+        db.session.add(user)
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('home'))
+
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -87,6 +84,14 @@ def logout():
 @login_required
 def account():
     return render_template('account.html', title='Account')
+
+def send_email(email,confirm_url):
+    msg = Message('Please confirm your email',sender='somebeek@gmail.com',recipients=[email])
+    msg.body='''Welcome! Thanks for signing up. Please follow this link to activate your account:
+{}. 
+Cheers!
+    '''.format({confirm_url})
+    mail.send(msg)
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -124,7 +129,7 @@ def reset_token(token):
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password=hashed_password
         db.session.commit()
-        flash('Your password has been updated! You are nowable to log in!','success')
+        flash('Your password has been updated! You are now able to log in!','success')
         return redirect(url_for("login"))
     return render_template('reset_token.html',title='Reset Password',form=form)
 

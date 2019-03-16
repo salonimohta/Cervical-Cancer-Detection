@@ -1,54 +1,201 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
+<!DOCTYPE html>
+<html lang="en">
 
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">	  
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <title>Login</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                	
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1>Login form</h1>
+                            <div class="description">
                         </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-5">
+                        	
+                        	<div class="form-box">
+	                        	<div class="form-top">
+	                        		<div class="form-top-left">
+	                        			<h3>Login as an Individual</h3>
+	                            		<p>Enter email and password to log in:</p>
+	                        		</div>
+	                        		<div class="form-top-right">
+	                        			<i class="fa fa-key"></i>
+	                        		</div>
+	                            </div>
+	                            <div class="form-bottom">
+				                    <form role="form" action="" method="post" class="login-form">
+				                    	<div class="form-group">
+                                            {{ form.email.label(class="form-control-label") }}
+											{% if form.email.errors %}
+											{{ form.email(class="form-control form-control-lg is-invalid") }}
+											<div class="invalid-feedback">
+												{% for error in form.email.errors %}
+													<span>{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% else %}
+											{{ form.email(class="form-control form-control-lg") }}
+										{% endif %}					
+				                        </div>
+				                        <div class="form-group">
+                                             {{ form.password.label(class="form-control-label") }}
+											{% if form.password.errors %}
+											{{ form.password(class="form-control form-control-lg is-invalid") }}
+											<div class="invalid-feedback">
+												{% for error in form.password.errors %}
+													<span>{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% else %}
+											{{ form.password(class="form-control form-control-lg") }}
+										{% endif %}
+										<div class="form-check">
+											{{ form.remember(class="form-check-input") }}
+											{{ form.remember.label(class="form-check-label") }}
+										</div>										
+										
+										
+										
+										</div>
+				                        <button type="submit" class="btn" style="background-color:#ff3300">Sign in!</button>
+										<small class="text-muted ml-2">
+											<a href="{{ url_for('request_reset') }}">Forgot Password?</a>
+										</small>							
+									
+									
+									</form>
+								</div>
+								<div class="border-top pt-3">
+									<small class="text-muted">
+										Need an Account? <a class="ml-2" href= "{{ url_for('register') }}">Sign Up</a>
+									</small>
+								</div>							
+							</div>	
+							                        
                         </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
-                    {% endif %}
+                        
+                        <div class="col-sm-1 middle-border"></div>
+                        <div class="col-sm-1"></div>
+                        	
+                        <div class="col-sm-5">
+                        	
+                        	<div class="form-box">
+	                        	<div class="form-top">
+	                        		<div class="form-top-left">
+	                        			<h3>Login as an Individual</h3>
+	                            		<p>Enter email and password to log in:</p>
+	                        		</div>
+	                        		<div class="form-top-right">
+	                        			<i class="fa fa-key"></i>
+	                        		</div>
+	                            </div>
+	                            <div class="form-bottom">
+				                    <form role="form" action="" method="post" class="login-form">
+				                    	<div class="form-group">
+                                            {{ form.email.label(class="form-control-label") }}
+											{% if form.email.errors %}
+											{{ form.email(class="form-control form-control-lg is-invalid") }}
+											<div class="invalid-feedback">
+												{% for error in form.email.errors %}
+													<span>{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% else %}
+											{{ form.email(class="form-control form-control-lg") }}
+										{% endif %}
+				                        </div>
+				                        <div class="form-group">
+                                             {{ form.password.label(class="form-control-label") }}
+											{% if form.password.errors %}
+											{{ form.password(class="form-control form-control-lg is-invalid") }}
+											<div class="invalid-feedback">
+												{% for error in form.password.errors %}
+													<span>{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% else %}
+											{{ form.password(class="form-control form-control-lg") }}
+										{% endif %}
+										<div class="form-check">
+											{{ form.remember(class="form-check-input") }}
+											{{ form.remember.label(class="form-check-label") }}
+										</div>
+
+
+
+										</div>
+				                        <button type="submit" class="btn" style="background-color:#ff3300">Sign in!</button>
+										<small class="text-muted ml-2">
+											<a href="{{ url_for('request_reset') }}">Forgot Password?</a>
+										</small>
+
+
+									</form>
+								</div>
+								<div class="border-top pt-3">
+									<small class="text-muted">
+										Need an Account? <a class="ml-2" href= "{{ url_for('register') }}">Sign Up</a>
+									</small>
+								</div>
+							</div>
+
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    {{ form.remember(class="form-check-input") }}
-                    {{ form.remember.label(class="form-check-label") }}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
             </div>
-            <small class="text-muted ml-2">
-                <a href="{{ url_for('request_reset') }}">Forgot Password?</a>
-            </small>
-        </form>
-    </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need an Account? <a class="ml-2" href= "{{ url_for('register') }}">Sign Up</a>
-        </small>
-    </div>
-{% endblock content %}
+        </div>
 
+        <!-- Footer -->
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>

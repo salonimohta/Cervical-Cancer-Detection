@@ -7,6 +7,7 @@ from flask_mail import Mail
 
 app=Flask(__name__)
 app.config['SECRET_KEY']='3e6d56fc8caaba56ee09e3c175a79916'
+app.config['SECURITY_PASSWORD_SALT']='Petercat'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 db=SQLAlchemy(app)
 bcrypt=Bcrypt(app)
