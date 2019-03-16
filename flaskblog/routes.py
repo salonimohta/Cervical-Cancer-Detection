@@ -22,7 +22,7 @@ def about():
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and current_user.confirmed:
         return redirect(url_for('home'))
     form=RegistrationForm()
     if form.validate_on_submit():
@@ -36,10 +36,13 @@ def register():
         confirm_url = url_for('confirm_email', token=token, _external=True)
         send_email(user.email,confirm_url=confirm_url)
 
-        login_user(user)
-
-        flash('A confirmation email has been sent via email.', 'success')
-        return redirect(url_for("home"))
+        flash('A confirmation email has been sent to your mail. Please verify your email', 'success')
+        return redirect('register')
+        if current_user.confirmed:
+            login_user(user)
+            return redirect('home')
+        flash('Please confirm your account!', 'warning')
+        return render_template('unconfirmed.html')
     return render_template('register.html',title='register',form=form)
 
 @app.route('/confirm/<token>')
@@ -86,16 +89,25 @@ def account():
     return render_template('account.html', title='Account')
 
 def send_email(email,confirm_url):
-    msg = Message('Please confirm your email',sender='somebeek@gmail.com',recipients=[email])
+    msg = Message('Please confirm your email',sender='noreply.ccd@gmail.com',recipients=[email])
     msg.body='''Welcome! Thanks for signing up. Please follow this link to activate your account:
 {}. 
 Cheers!
-    '''.format({confirm_url})
+    '''.format(confirm_url)
     mail.send(msg)
+
+@app.route('/unconfirmed')
+@login_required
+def unconfirmed():
+    if current_user.confirmed:
+        return redirect('home')
+    flash('Please confirm your account!', 'warning')
+    return render_template('unconfirmed.html')
+
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg=Message('Password Reset Request',sender='somebeek@gmail.com',recipients=[user.email])
+    msg=Message('Password Reset Request',sender='noreply.ccd@gmail.com',recipients=[user.email])
     msg.body='''To reset your password visit the following link:
 {}
 
@@ -133,4 +145,12 @@ def reset_token(token):
         return redirect(url_for("login"))
     return render_template('reset_token.html',title='Reset Password',form=form)
 
+@app.route('/resend')
+@login_required
+def resend_confirmation():
+    token = generate_confirmation_token(current_user.email)
+    confirm_url = url_for('user.confirm_email', token=token, _external=True)
+    send_email(current_user.email, confirm_url)
+    flash('A new confirmation email has been sent.', 'success')
+    return redirect(url_for('unconfirmed'))
 
