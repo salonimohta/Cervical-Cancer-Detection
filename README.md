@@ -10,7 +10,9 @@ the cervical cancer screening that could potentially save their lives
 and also create awareness regarding menstrual health.
 # SOLUTION APPROACH
 ## Cervical cancer detection
-### Logistic 
+### Logistic Regression Model
+We started with a Logistic Regression model as a multi class classification. We spilt a small dataset for train and test data. 
+We further trained a CNN model as image data is suited for. 
 ### CNN Model
 A deep learning model for classifying images using a convolutional neural network with the help of batch normalisation and multi-class
 logarithmic loss as our loss function. We will be working on the dataset for image-based Cervical Intraepithelial Neoplasia(CIN)
