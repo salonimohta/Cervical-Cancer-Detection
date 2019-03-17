@@ -10,6 +10,14 @@ from ww import f
 import os
 from werkzeug.datastructures import FileStorage
 from random import *
+import csv
+
+# File = open('out.csv')
+# Reader = csv.reader(File)
+# Data = list(Reader)
+
+csv_reader = csv.reader('out.csv',delimiter=',')
+
 
 s=URLSafeTimedSerializer('Thisisasecret!')
 
@@ -110,7 +118,8 @@ def logout():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    form = RequestResetForm()
+    return render_template('account.html', title='Account',form=form)
 
 def send_email(email,confirm_url):
     msg = Message('Please confirm your email',sender='noreply.ccd@gmail.com',recipients=[email])
@@ -188,6 +197,21 @@ def save_file(form_picture,last_name, first_name):
     f.save(picture_path)
     return picture_fn
 
+def reading(x):
+    for row in csv_reader:
+        if row[2] == x:
+            return row[1]
+            break
+
+
+def send_mail(to, subject, template):
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender='noreply.ccd@gmail.com'
+    )
+    mail.send(msg)
 
 @app.route("/detect", methods=['GET', 'POST'])
 @login_required
@@ -200,8 +224,10 @@ def detect():
         db.session.add(patient)
         db.session.commit()
         flash('Patient information is successfully entered', 'success')
-        x= randint(0,2)
-        return render_template('add.html',x=x )
+        x =0
+        #x= reading(picture_fn)
+        x=randint(0,2)
+        send_mail(current_user.email,'Results of Cervical Cancer',render_template('add.html',x=x ))
     return render_template('detect.html', title='Detect Cancer', form=form)
 
 

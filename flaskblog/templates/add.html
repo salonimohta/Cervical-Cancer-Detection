@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
+    <p>
+    To {{ current_user.username }},
+    </p>
+    <p>
         {% if x==0 %}
-            <p>Cancer is not present in the cervix</p>
+            <p>Cancer is not present in the cervix of the data you provided.</p>
         {% elif x==1 %}
-            <p>Early stage cancer detected in cervix</p>
+            <p>Early stage cancer detected in cervix of the data you provided.</p>
         {% else %}
-            <p>Cancer detected in advance stage in cervix</p>
+            <p>Cancer detected in advance stage in cervix of the data you provided.</p>
         {% endif %}
+    </p>
+    <p>
+    Thank You for using our service.
+    </p>
 {% endblock content %}
